@@ -38,7 +38,10 @@
             width: 'auto',
             height: '100%',
 
+            stickyButtons: false,
+
             mergeOnPaging: true,
+            useAutocompleteRow: false,
             onPaging: function() {
                 var jqGridOverlay = _getJqGridOverlay();
                 jqGridOverlay.addClass('custom-overlay');
@@ -46,11 +49,22 @@
 
             mergeLoadComplete: true,
             loadComplete: function () {
+                var _this = this;
+                var $jqgridContainer = $('#' + $(_this).attr('aria-labelledby'));
+                var records = jQuery(_this).jqGrid('getGridParam', 'reccount');
+
+
+                if(!$jqgridContainer.find('.ui-pg-selbox-container').length){
+                    _createContainerForPgSelbox($jqgridContainer,records);
+                    _movePgSelbox($jqgridContainer);
+                }
+
                 var table = gridOpts.table;
                 var jqGridOverlay = _getJqGridOverlay();
 
                 //Display no records message.
                 var noRecordsMessage = photonTranslations.listing[photonPageLang].noResults;
+
                 var emptyMessage = $(
                     '<div class="custom-jqgrid-messages-'+ table.id +' custom-jqgrid-no-records-'+ table.id +' alert alert-info no-margin">' +
                         '<i class="fa fa-info-circle"></i>' +
@@ -69,19 +83,42 @@
                 }
                 jqGridOverlay.removeClass('custom-overlay');
 
+                if(gridOpts.stickyButtons) {
+                    _initStickyOnJqGrid(gridOpts);
+                }
             },
-            mergeGridComplete:true,
+            mergeGridComplete: true,
             gridComplete: function() {
                 var jqGridOverlay = _getJqGridOverlay();
                 //Make overlay background active
                 jqGridOverlay.addClass('custom-overlay');
             },
-            caption: 'Listing default caption, please provide "caption" parameter',
+            caption: null,
             useCustomColumnChooser: false,
             columnChooserOptions: {}
         };
 
         var gridOpts = $.extend({}, defaultParams, parameters || {});
+        gridOpts.caption = null;
+
+        function _initStickyOnJqGrid(gridOpts){
+            var tableId = '#gbox_'+ gridOpts.table.slice(1);
+            var $tableHead = $(tableId + ' .ui-jqgrid-hdiv');
+            var $tableBody = $(tableId + ' .ui-jqgrid-bdiv');
+
+            _addClassForStickElements(tableId);
+            initPhotonStick(tableId);
+
+            $(window).on("sticky_kit:stick", function() {
+                $tableHead.scrollLeft($tableBody.scrollLeft());
+            }).on("sticky_kit:unstick", function() {
+                $tableHead.scrollLeft($tableBody.scrollLeft());
+            })
+        }
+
+        function _addClassForStickElements(tableId){
+            $(tableId +' .ui-jqgrid-hdiv').addClass('stick');
+        }
 
         function _getJqGridOverlay()
         {
@@ -189,6 +226,24 @@
             });
         }
 
+        function _movePgSelbox($jqgridContainer){
+            $jqgridContainer.find('.ui-pg-selbox').appendTo($jqgridContainer.find('.ui-pg-selbox-container span').eq(0));
+        }
+
+        function _createContainerForPgSelbox($jqgridContainer, records) {
+            $jqgridContainer.find('.ui-pager-control').append(
+                '<div class="ui-pg-selbox-container">' +
+                    photonTranslations.listing[photonPageLang].view +
+                    '<span></span>' +
+                    photonTranslations.listing[photonPageLang].of +
+                    ' <span class="no-items">' +
+                        records +
+                    '</span> ' +
+                (records == 1 ? photonTranslations.listing[photonPageLang].item : photonTranslations.listing[photonPageLang].items) +
+                '</div>'
+            );
+        }
+
         this.init = function () {
             $this.grid = $(gridOpts.table).jqGrid(gridOpts);
             var jqGridOverlay = _getJqGridOverlay();
@@ -198,6 +253,10 @@
             }
             if(gridOpts.useCustomColumnChooser) {
                 _initCustomColumnChooser();
+            }
+            if(gridOpts.useAutocompleteRow) {
+                $($this.grid).parents('.ui-jqgrid-bdiv:first').addClass('reset-overflow');
+                $($this.grid).parents('.ui-jqgrid-view:first').removeClass('table-responsive');
             }
         };
 

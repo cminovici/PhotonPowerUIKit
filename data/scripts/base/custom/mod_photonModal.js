@@ -20,12 +20,6 @@
      */
     var _template = '';
     /**
-     * Test to see if modal is visible
-     * @private
-     * @type {Boolean}
-     */
-    var _isVisible = false;
-    /**
      * Types of modal that have a special styling. These modals will have a background change
      * @private
      * @type {Array}
@@ -69,7 +63,7 @@
          * when the content is received so a special event is needed
          */
         $(document).on('showModalAfterDomRenderedEvent', "#" + $this.defaults.id, function () {
-            _isVisible ? $("#" + $this.defaults.id).modal('show') : '';
+            $this._isVisible ? $("#" + $this.defaults.id).modal('show') : '';
         });
         /**
          * Event for submitting the form
@@ -113,7 +107,9 @@
      * @param hiddenCallback
      */
     function setHideCallback (hiddenCallback) {
+        var $this = this;
         $(document).on("hidden.bs.modal", "#" + this.defaults.id, function (e) {
+            $this._isVisible = false;
             hiddenCallback(e);
         });
     }
@@ -364,6 +360,13 @@
         };
 
         /**
+         * Test to see if modal is visible
+         * @private
+         * @type {Boolean}
+         */
+        this._isVisible = false;
+
+        /**
          * Extend default options of class with the ones received from class instantiation
          */
         this.options = options;
@@ -420,7 +423,7 @@
                         buttons: {
                             cancel: {
                                 label: _cancelLabel,
-                                class: 'btn-link',
+                                class: 'btn-default',
                                 icon: 'fa fa-times'
                             }
                         }
@@ -432,7 +435,7 @@
                         buttons: {
                             cancel: {
                                 label: _cancelLabel,
-                                class: 'btn-link',
+                                class: 'btn-default',
                                 icon: 'fa fa-times'
                             }
                         }
@@ -444,7 +447,7 @@
                         buttons: {
                             cancel: {
                                 label: _cancelLabel,
-                                class: 'btn-link',
+                                class: 'btn-default',
                                 icon: 'fa fa-times'
                             }
                         }
@@ -457,12 +460,12 @@
                             save: {
                                 label: _saveLabel,
                                 class: 'btn-success',
-                                icon: 'fa fa-check',
+                                icon: 'btn-default',
                                 formSubmitter: true
                             },
                             cancel: {
                                 label: _cancelLabel,
-                                class: 'btn-link',
+                                class: 'btn-default',
                                 icon: 'fa fa-times'
                             }
                         }
@@ -516,14 +519,16 @@
          * Show modal
          */
         show: function () {
-            _isVisible = true;
-            /**
-             * Build modal through ajax or with static content
-             */
-            this.defaults.useAjax ? createModalUsingAjax.call(this) : buildStaticModal.call(this);
+            if (!this._isVisible) {
+                this._isVisible = true;
+                /**
+                 * Build modal through ajax or with static content
+                 */
+                this.defaults.useAjax ? createModalUsingAjax.call(this) : buildStaticModal.call(this);
+            }
         },
         hide: function () {
-            _isVisible = false;
+            this._isVisible = false;
             /**
              * Hide modal
              */

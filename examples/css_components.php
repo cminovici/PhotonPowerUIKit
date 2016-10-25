@@ -1235,16 +1235,11 @@
                                                         <div class="form-group">
                                                             <input type="range" name="points" min="0" max="100" step="5" value="5">
                                                         </div>
-                                                        <p>Range inputs with validation:</p>
-                                                        <div class="form-group has-success">
-                                                            <input type="range" name="points" min="0" max="100" step="5" value="5">
+                                                        <p>Disabled range input:</p>
+                                                        <div class="form-group">
+                                                            <input type="range" name="points" min="0" max="100" step="5" value="5" disabled>
                                                         </div>
-                                                        <div class="form-group has-warning">
-                                                            <input type="range" name="points" min="0" max="100" step="5" value="5">
-                                                        </div>
-                                                        <div class="form-group has-error">
-                                                            <input type="range" name="points" min="0" max="100" step="5" value="5">
-                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -1449,18 +1444,14 @@
                                         </div>
                                         <div class="show-panel-body">
                                             <p><strong>Contextual classes:</strong></p>
-                                            <p>Use any of the available button classes to quickly create a styled button. ex: <mark>.btn-primary</mark>, <mark>.btn-success</mark>, <mark>.btn-warning</mark>...etc.</p>
+                                            <p>Use any of the available button classes to quickly create a styled button. ex: <mark>.btn-primary</mark>, <mark>.btn-success</mark>, <mark>.btn-danger</mark>...etc.</p>
                                             <div class="pad-sep-20 pad-top-40">
-                                                <div class="row">
-                                                    <div class="col-lg-8 col-lg-offset-2">
-                                                        <button type="button" class="btn btn-default">Default</button>
-                                                        <button type="button" class="btn btn-primary">Primary</button>
-                                                        <button type="button" class="btn btn-success">Success</button>
-                                                        <button type="button" class="btn btn-info">Info</button>
-                                                        <button type="button" class="btn btn-warning">Warning</button>
-                                                        <button type="button" class="btn btn-danger">Danger</button>
-                                                        <button type="button" class="btn btn-link">Link</button>
-                                                    </div>
+                                                <div class="text-center">
+                                                    <button type="button" class="btn btn-default">Default</button>
+                                                    <button type="button" class="btn btn-primary">Primary</button>
+                                                    <button type="button" class="btn btn-success">Success</button>
+                                                    <button type="button" class="btn btn-danger">Danger</button>
+                                                    <button type="button" class="btn btn-link">Link</button>
                                                 </div>
                                             </div>
                                             <div class="alert alert-info">
@@ -1576,7 +1567,7 @@
                                                             <div class="btn-group" role="group" aria-label="...">
                                                                 <button type="button" class="btn btn-primary">X</button>
                                                                 <button type="button" class="btn btn-success">Y</button>
-                                                                <button type="button" class="btn btn-warning">X</button>
+                                                                <button type="button" class="btn btn-danger">X</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1618,8 +1609,8 @@
                                                 <div class="row">
                                                     <div class="col-lg-8 col-lg-offset-2">
                                                         <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                                                            <button type="button" class="btn btn-info">Button</button>
-                                                            <button type="button" class="btn btn-info">Button</button>
+                                                            <button type="button" class="btn btn-primary">Button</button>
+                                                            <button type="button" class="btn btn-primary">Button</button>
                                                             <div class="btn-group" role="group">
                                                                 <button id="btnGroupVerticalDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Dropdown <span class="caret"></span></button>
                                                                 <ul class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1">
@@ -1627,8 +1618,8 @@
                                                                     <li><a href="#">Dropdown link</a></li>
                                                                 </ul>
                                                             </div>
-                                                            <button type="button" class="btn btn-info">Button</button>
-                                                            <button type="button" class="btn btn-info">Button</button>
+                                                            <button type="button" class="btn btn-primary">Button</button>
+                                                            <button type="button" class="btn btn-primary">Button</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1649,16 +1640,10 @@
                                                                 <div class="form-group">
                                                                     <button type="button" class="btn btn-block btn-primary">Primary</button>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <button type="button" class="btn btn-block btn-success">Success</button>
-                                                                </div>
                                                             </div>
                                                             <div class="col-sm-6">
                                                                 <div class="form-group">
-                                                                    <button type="button" class="btn btn-block btn-info">Info</button>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <button type="button" class="btn btn-block btn-warning">Warning</button>
+                                                                    <button type="button" class="btn btn-block btn-success">Success</button>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <button type="button" class="btn btn-block btn-danger">Danger</button>
@@ -1681,7 +1666,6 @@
                                     <div class="show-panel show-panel-example">
                                         <div class="show-panel-body">
                                             <h4 class="text-primary"><strong>CSS Flipswitch</strong></h4>
-                                            <p>You can change the contextual styling of the flipswitch by using any of the available <mark>switch-*</mark> classes.</p>
                                             <div class="alert alert-info" role="alert"><p><i class="fa fa-info-circle fonts-up-140"></i>
                                                 The flip-switch items are based on a checkbox form-element. In order to display the flip-switch in the "on" or "off" state, make sure to add or remove the "checked" attribute from the "checkbox" input type.
                                                 </p></div>
@@ -1689,28 +1673,13 @@
                                                 <div class="row">
                                                     <div class="col-lg-8 col-lg-offset-2 text-center">
                                                         <p>
-                                                            <label class="switch switch-primary">
-                                                                <input type="checkbox" class="switch-input" name="card_status_0" checked="">
+                                                            <label class="switch">
+                                                                <input type="checkbox" class="switch-input" name="card_status_0" >
                                                                 <span class="switch-label"></span>
                                                                 <span class="switch-handle"></span>
                                                             </label>
-                                                            <label class="switch switch-info">
-                                                                <input type="checkbox" class="switch-input" name="card_status_0" checked="">
-                                                                <span class="switch-label"></span>
-                                                                <span class="switch-handle"></span>
-                                                            </label>
-                                                            <label class="switch switch-success">
-                                                                <input type="checkbox" class="switch-input" name="card_status_0" checked="">
-                                                                <span class="switch-label"></span>
-                                                                <span class="switch-handle"></span>
-                                                            </label>
-                                                            <label class="switch switch-warning">
-                                                                <input type="checkbox" class="switch-input" name="card_status_0" checked="">
-                                                                <span class="switch-label"></span>
-                                                                <span class="switch-handle"></span>
-                                                            </label>
-                                                            <label class="switch switch-danger">
-                                                                <input type="checkbox" class="switch-input" name="card_status_0" checked="">
+                                                            <label class="switch">
+                                                                <input type="checkbox" class="switch-input" name="card_status_0" checked>
                                                                 <span class="switch-label"></span>
                                                                 <span class="switch-handle"></span>
                                                             </label>

@@ -59,9 +59,21 @@
             /**
              * TreeType click
              */
-            $this.element.bind('click', function(e){
+            $this.element.on('click', function(e){
                 if(e.target != this) return;
                 $this.modal.show();
+            });
+
+            /**
+             * Parent form reset action
+             */
+            $('#' + $this.options.typeId).parents('form').on('reset', function() {
+                $('#' + $this.options.selectId + ' option[value!=""]:selected').removeAttr('selected').prop('selected', false);
+                if ($this.$tree != undefined) {
+                    $this._resetSearch();
+                    $this.$tree.reload();
+                }
+                $this._updateInfo();
             });
         },
 
@@ -264,20 +276,6 @@
             });
 
             $this._syncSelectToTree();
-
-            $('form').bind('reset', function() {
-                /** Stops the form from resetting after this function */
-                event.preventDefault();
-
-                /** resets the form before continuing the function */
-                $(this).reset();
-
-                /** Reload tree */
-                $this.$tree.reload();
-
-                /** Update displayed info */
-                $this._updateInfo();
-            });
         },
 
         _constructSearch: function(){
@@ -285,11 +283,11 @@
 
             $this.$tree.options.filter.mode = $this.options.searchUnmatched ? 'hide' : 'dimm';
 
-            $('#' + $this.options.treeSearchId).bind('input', function (event) {
+            $('#' + $this.options.treeSearchId).on('input', function (event) {
                 $this._searchHandler.call($this);
             });
 
-            $('#' + $this.options.treeSelectHierarchyId).bind('change', function () {
+            $('#' + $this.options.treeSelectHierarchyId).on('change', function () {
                 if ($(this).is(':checked')) {
                     $this.tree.fancytree('option', 'selectMode', 3);
                 } else {
@@ -297,7 +295,7 @@
                 }
             });
 
-            $('#' + $this.options.treeUnmatchedId).bind('change', function () {
+            $('#' + $this.options.treeUnmatchedId).on('change', function () {
                 $this._unmatchedHandler.call($this);
             });
         },
@@ -355,6 +353,7 @@
 
             var selected = $this.$tree.getSelectedNodes();
 
+            $('#' + $this.options.selectId + ' option:selected').removeAttr('selected');
             $('#' + $this.options.selectId + ' option:selected').prop('selected', false);
 
             $(selected).each(function(){
